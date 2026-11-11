@@ -1,0 +1,80 @@
+<section class="section" id="debian-dir">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2>The <span class="ic" style="font-size:inherit">debian/</span> Directory</h2>
+  </div>
+  <p class="section-desc">Every file in debian/ and what it does. The first four are mandatory; the rest you add as needed.</p>
+
+  <div class="table-wrap">
+    <table class="file-table">
+      <thead><tr><th>File</th><th>Mandatory?</th><th>What it contains</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="fname">debian/control</td>
+          <td class="freq">Always</td>
+          <td>Package name, version, maintainer, dependencies, description. The most important file. One stanza per binary package.</td>
+        </tr>
+        <tr>
+          <td class="fname">debian/changelog</td>
+          <td class="freq">Always</td>
+          <td>Version history in a strict format. The top entry sets the version that gets built. Use <span class="ic">dch</span> to edit it, never by hand.</td>
+        </tr>
+        <tr>
+          <td class="fname">debian/rules</td>
+          <td class="freq">Always</td>
+          <td>A Makefile that tells <span class="ic">dpkg-buildpackage</span> how to build. Modern packages just call <span class="ic">dh $@</span> — debhelper handles the rest.</td>
+        </tr>
+        <tr>
+          <td class="fname">debian/copyright</td>
+          <td class="freq">Always</td>
+          <td>License and copyright information for every file in the package, in DEP-5 machine-readable format.</td>
+        </tr>
+        <tr>
+          <td class="fname">debian/patches/</td>
+          <td class="freq">When needed</td>
+          <td>Patch files (created by <span class="ic">quilt</span>) that modify upstream source. Applied automatically at build time.</td>
+        </tr>
+        <tr>
+          <td class="fname">debian/watch</td>
+          <td class="freq">Recommended</td>
+          <td>Tells <span class="ic">uscan</span> where to find new upstream releases. Used by the Debian QA team to alert maintainers of updates.</td>
+        </tr>
+        <tr>
+          <td class="fname">debian/install</td>
+          <td class="freq">Sometimes</td>
+          <td>Lists extra files to install when the standard build system doesn't place them automatically.</td>
+        </tr>
+        <tr>
+          <td class="fname">debian/docs</td>
+          <td class="freq">Sometimes</td>
+          <td>Extra documentation files to ship in the package.</td>
+        </tr>
+        <tr>
+          <td class="fname">debian/postinst<br>debian/prerm<br>debian/postrm</td>
+          <td class="freq">Sometimes</td>
+          <td>Shell scripts that run after install / before remove / after remove. Needed for services, caches, users, etc.</td>
+        </tr>
+        <tr>
+          <td class="fname">debian/source/format</td>
+          <td class="freq">Recommended</td>
+          <td>Contains <span class="ic">3.0 (quilt)</span> for most packages. This is the modern default.</td>
+        </tr>
+        <tr>
+          <td class="fname">debian/upstream/signing-key.asc</td>
+          <td class="freq">Security</td>
+          <td>OpenPGP key to verify upstream tarballs. Used by <span class="ic">uscan</span>.</td>
+        </tr>
+        <tr>
+          <td class="fname">debian/salsa-ci.yml</td>
+          <td class="freq">CI</td>
+          <td>Enables GitLab CI on Salsa (Debian's GitLab). Runs lintian, piuparts, etc. automatically.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="callout-icon">⚠️</span>
+    <div class="callout-body"><strong>Never edit debian/changelog by hand.</strong> Always use <span class="ic">dch</span> (or <span class="ic">debchange</span>) — it handles formatting and timestamps correctly.</div>
+  </div>
+</section>

@@ -1,0 +1,33 @@
+<section class="section" id="what-is">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2>What is Debian Packaging?</h2>
+  </div>
+  <p class="section-desc">The plain-English explanation before we touch any tools.</p>
+
+  <p>When you download software on Debian/Ubuntu, you use <span class="ic">apt install something</span>. That "something" is a <strong>.deb package</strong> — a compressed archive that bundles the program's files together with metadata: what other packages it needs, who made it, what version it is, where files should land on your system.</p>
+
+  <p><strong>Debian packaging</strong> is the process of wrapping an upstream program (some open-source project you downloaded as source code) inside a .deb so anyone on Debian can install it cleanly with <span class="ic">apt</span>.</p>
+
+  <p>The wrapping lives in a special folder called <strong><span class="ic">debian/</span></strong> that you create inside the source tree. That folder is what you spend most of your time editing.</p>
+
+  <div class="callout callout-tip">
+    <span class="callout-icon">💡</span>
+    <div class="callout-body"><strong>Just for yourself?</strong> If you only need the software locally, compile it and install into <span class="ic">/usr/local/</span>. Packaging is worth the effort when you want to share it with others through the Debian archive.</div>
+  </div>
+
+  <div class="table-wrap">
+    <table class="file-table">
+      <thead><tr><th>Term</th><th>What it means</th></tr></thead>
+      <tbody>
+        <tr><td class="fname">upstream</td><td>The original authors' code (e.g., a tarball from GitHub)</td></tr>
+        <tr><td class="fname">source package</td><td>Upstream code + your debian/ folder — what you maintain</td></tr>
+        <tr><td class="fname">binary package</td><td>The .deb file users actually install</td></tr>
+        <tr><td class="fname">debian/</td><td>Your contribution: the folder that tells dpkg how to build the .deb</td></tr>
+        <tr><td class="fname">orig tarball</td><td>The upstream source as a <span class="ic">.orig.tar.xz</span> — untouched</td></tr>
+        <tr><td class="fname">diff / patches</td><td>Your changes on top of upstream, stored as <span class="ic">.patch</span> files</td></tr>
+        <tr><td class="fname">debhelper / dh</td><td>The build helper framework that does 90% of the work for you</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>

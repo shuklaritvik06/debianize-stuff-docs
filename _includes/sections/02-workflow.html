@@ -1,0 +1,50 @@
+<section class="section" id="workflow">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2>The 4-Step Packaging Workflow</h2>
+  </div>
+  <p class="section-desc">Every Debian package follows this same pattern, from a tarball to a working .deb.</p>
+
+  <div class="workflow">
+    <div class="step">
+      <div class="step-left"><div class="step-dot">1</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <p class="step-title">Get the upstream source</p>
+        <p class="step-desc">Download the original program's tarball (e.g., <span class="ic">mypkg-1.0.tar.gz</span>) and unpack it. This is your starting material — never modify it directly.</p>
+        <div class="code-block"><code><span class="cmd">tar</span> -xf mypkg-1.0.tar.gz
+<span class="cmd">cd</span> mypkg-1.0</code></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-left"><div class="step-dot">2</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <p class="step-title">Generate template files with debmake</p>
+        <p class="step-desc">Run <span class="ic">debmake</span> inside the unpacked source. It reads the existing build files and generates a <span class="ic">debian/</span> folder full of templates — placeholders you must edit.</p>
+        <div class="code-block"><code><span class="cmd">debmake</span></code></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-left"><div class="step-dot">3</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <p class="step-title">Edit the template files</p>
+        <p class="step-desc">Open each file in <span class="ic">debian/</span> and fill in the real information: package description, dependencies, copyright, etc. This is the most time-consuming step.</p>
+        <div class="code-block"><code>$EDITOR debian/control
+$EDITOR debian/copyright
+$EDITOR debian/changelog</code></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-left"><div class="step-dot">4</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <p class="step-title">Build the package with debuild</p>
+        <p class="step-desc">Run <span class="ic">debuild</span> from inside the source tree. It compiles the code, assembles the .deb, and runs <span class="ic">lintian</span> to check for policy violations.</p>
+        <div class="code-block"><code><span class="cmd">debuild</span></code></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout callout-tip">
+    <span class="callout-icon">📌</span>
+    <div class="callout-body">The <span class="ic">.deb</span> and related files land in the <strong>parent</strong> directory (one level up from your source tree), not inside it.</div>
+  </div>
+</section>

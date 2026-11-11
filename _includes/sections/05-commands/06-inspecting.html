@@ -1,0 +1,50 @@
+<h3 class="cmd-group-title" id="cmd-inspecting">Inspecting &amp; Debugging</h3>
+
+<div class="cmd-card">
+  <div class="cmd-card-header">
+    <span class="cmd-name">debdiff</span>
+    <span class="cmd-what">Show what changed between two .deb or .changes files</span>
+  </div>
+  <div class="cmd-code"><code>debdiff mypkg_1.0-1.changes mypkg_1.0-2.changes
+debdiff mypkg_1.0-1.deb mypkg_1.0-2.deb</code></div>
+  <div class="cmd-when">The standard way to review a packaging update before uploading. Shows file additions, removals, and control-metadata changes between two builds.</div>
+</div>
+
+<div class="cmd-card">
+  <div class="cmd-card-header">
+    <span class="cmd-name">dget</span>
+    <span class="cmd-what">Download and unpack a source package from the archive</span>
+  </div>
+  <div class="cmd-code"><code>dget https://snapshot.debian.org/archive/.../mypkg_1.0-1.dsc</code></div>
+  <div class="cmd-when">Downloads the <span class="ic">.dsc</span> and all associated source files in one step, then verifies signatures. Essential for inspecting how another maintainer packaged something.</div>
+</div>
+
+<div class="cmd-card">
+  <div class="cmd-card-header">
+    <span class="cmd-name">dpkg-depcheck</span>
+    <span class="cmd-what">Find which packages a command actually uses</span>
+  </div>
+  <div class="cmd-code"><code>dpkg-depcheck -d make</code></div>
+  <div class="cmd-when">Runs a command under <span class="ic">strace</span> and reports which installed packages provided the files it opened. Useful for finding undeclared runtime dependencies.</div>
+</div>
+
+<div class="cmd-card">
+  <div class="cmd-card-header">
+    <span class="cmd-name">dpkg-query</span>
+    <span class="cmd-what">Query the local dpkg database</span>
+  </div>
+  <div class="cmd-code"><code>dpkg-query -L mypkg          # list installed files
+dpkg-query -s mypkg          # show status/metadata
+dpkg-query -S /usr/bin/foo   # which package owns this file</code></div>
+  <div class="cmd-when">Inspect what's installed on your machine. <span class="ic">-S</span> is especially useful when debugging a "file conflicts with package X" lintian error.</div>
+</div>
+
+<div class="cmd-card">
+  <div class="cmd-card-header">
+    <span class="cmd-name">apt-file</span>
+    <span class="cmd-what">Find which package provides a file (even if uninstalled)</span>
+  </div>
+  <div class="cmd-code"><code>apt-file search /usr/include/zlib.h
+apt-file search libssl-dev</code></div>
+  <div class="cmd-when">When a build fails with "header not found", use this to find the right <span class="ic">Build-Depends</span> to add. Searches the full Debian archive, not just installed packages.</div>
+</div>

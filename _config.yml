@@ -1,0 +1,26 @@
+title: Debian Packaging Guide
+description: Every command, file, and workflow explained in plain English.
+baseurl: ""
+url: ""
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  hard_wrap: false
+nav:
+  - id: what-is
+    label: What is it?
+  - id: workflow
+    label: Workflow
+  - id: setup
+    label: Setup
+  - id: debian-dir
+    label: debian/ dir
+  - id: commands
+    label: Commands
+  - id: recipes
+    label: Recipes
+  - id: quickref
+    label: Quick Ref
+plugins:
+  - jekyll-seo-tag

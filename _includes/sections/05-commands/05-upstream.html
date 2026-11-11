@@ -1,0 +1,39 @@
+<h3 class="cmd-group-title" id="cmd-upstream">Tracking Upstream</h3>
+
+<div class="cmd-card">
+  <div class="cmd-card-header">
+    <span class="cmd-name">uscan</span>
+    <span class="cmd-what">Check for a new upstream release</span>
+  </div>
+  <div class="cmd-code"><code>uscan --verbose
+uscan --download-current-version</code></div>
+  <div class="cmd-when">Reads <span class="ic">debian/watch</span> to find the upstream download page, compares versions, and optionally downloads the new tarball. The Debian QA team runs this regularly for all packages.</div>
+</div>
+
+<div class="cmd-card">
+  <div class="cmd-card-header">
+    <span class="cmd-name">uupdate</span>
+    <span class="cmd-what">Apply a new upstream tarball to your package</span>
+  </div>
+  <div class="cmd-code"><code>uupdate ../mypkg_2.0.orig.tar.gz</code></div>
+  <div class="cmd-when">The standard upgrade path. Unpacks the new tarball, copies your <span class="ic">debian/</span> folder in, tries to re-apply your patches, and bumps the changelog. You then fix any patch rejections.</div>
+</div>
+
+<div class="cmd-card">
+  <div class="cmd-card-header">
+    <span class="cmd-name">gbp import-orig</span>
+    <span class="cmd-what">Import a new upstream release into gbp repo</span>
+  </div>
+  <div class="cmd-code"><code>gbp import-orig --uscan   # download + import in one step
+gbp import-orig ../mypkg_2.0.orig.tar.gz</code></div>
+  <div class="cmd-when">When using git-buildpackage. Imports the tarball into the <span class="ic">upstream</span> branch and merges it into <span class="ic">debian/sid</span> (or whichever packaging branch you use).</div>
+</div>
+
+<div class="cmd-card">
+  <div class="cmd-card-header">
+    <span class="cmd-name">origtargz</span>
+    <span class="cmd-what">Download and verify the upstream orig tarball</span>
+  </div>
+  <div class="cmd-code"><code>origtargz</code></div>
+  <div class="cmd-when">Downloads the <span class="ic">.orig.tar.*</span> matching the current changelog entry and verifies the OpenPGP signature (if <span class="ic">debian/upstream/signing-key.asc</span> exists). Easier than curl + manual check.</div>
+</div>

@@ -1,0 +1,40 @@
+<h3 class="cmd-group-title" id="cmd-debugging">Bug Tracking</h3>
+
+<div class="cmd-card">
+  <div class="cmd-card-header">
+    <span class="cmd-name">reportbug</span>
+    <span class="cmd-what">File a bug report against a Debian package</span>
+  </div>
+  <div class="cmd-code"><code>reportbug mypkg</code></div>
+  <div class="cmd-when">Collects system info, checks for existing bugs, and mails a report to the Debian Bug Tracking System. Use when you find a problem in any installed package.</div>
+</div>
+
+<div class="cmd-card">
+  <div class="cmd-card-header">
+    <span class="cmd-name">bts</span>
+    <span class="cmd-what">Interact with the Debian Bug Tracking System from the CLI</span>
+  </div>
+  <div class="cmd-code"><code>bts show 123456          # view bug details
+bts close 123456 1.0-2   # close bug, fixed in version
+bts retitle 123456 "New title"
+bts reassign 123456 otherpkg</code></div>
+  <div class="cmd-when">As a maintainer, use this to manage bugs against your packages: close them when fixed, retitle when the report is misleading, reassign if it belongs to another package.</div>
+</div>
+
+<div class="cmd-card">
+  <div class="cmd-card-header">
+    <span class="cmd-name">devscripts: rc-alert</span>
+    <span class="cmd-what">List release-critical bugs in packages you maintain</span>
+  </div>
+  <div class="cmd-code"><code>rc-alert --maintainer you@example.com</code></div>
+  <div class="cmd-when">Shows open RC (release-critical) bugs for your packages. If any exist when a freeze comes, your package may be dropped from the release.</div>
+</div>
+
+<div class="cmd-card">
+  <div class="cmd-card-header">
+    <span class="cmd-name">wnpp-check</span>
+    <span class="cmd-what">Check if a package is already being worked on</span>
+  </div>
+  <div class="cmd-code"><code>wnpp-check mypkg</code></div>
+  <div class="cmd-when">Before packaging something new, check if there's an existing ITP (Intent To Package) or RFP (Request For Package) bug. Avoids duplicated effort.</div>
+</div>

@@ -1,0 +1,87 @@
+<section class="section" id="quickref">
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <h2>Quick Reference</h2>
+  </div>
+  <p class="section-desc">The commands you reach for most often, one line each.</p>
+
+  <div class="qr-grid">
+    <div class="qr-card">
+      <div class="qr-label">Generate debian/ templates</div>
+      <div class="qr-cmd"><code>debmake</code></div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label">Add a changelog entry</div>
+      <div class="qr-cmd"><code>dch -i "message"</code></div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label">Build the package</div>
+      <div class="qr-cmd"><code>debuild -us -uc</code></div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label">Build source only</div>
+      <div class="qr-cmd"><code>debuild -S -sa</code></div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label">Build in clean chroot</div>
+      <div class="qr-cmd"><code>sbuild -d unstable pkg.dsc</code></div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label">Check policy compliance</div>
+      <div class="qr-cmd"><code>lintian pkg.changes</code></div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label">List .deb contents</div>
+      <div class="qr-cmd"><code>debc pkg.changes</code></div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label">Test install/purge</div>
+      <div class="qr-cmd"><code>piuparts pkg.deb</code></div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label">Check for new upstream</div>
+      <div class="qr-cmd"><code>uscan --verbose</code></div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label">Apply new upstream</div>
+      <div class="qr-cmd"><code>uupdate ../pkg_2.0.orig.tar.gz</code></div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label">New patch</div>
+      <div class="qr-cmd"><code>dquilt new fix-name.patch</code></div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label">Save patch edits</div>
+      <div class="qr-cmd"><code>dquilt refresh</code></div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label">Sort control fields</div>
+      <div class="qr-cmd"><code>wrap-and-sort -a</code></div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label">Find package for file</div>
+      <div class="qr-cmd"><code>apt-file search /path/to/file</code></div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label">Diff two builds</div>
+      <div class="qr-cmd"><code>debdiff old.changes new.changes</code></div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label">Upload to Debian</div>
+      <div class="qr-cmd"><code>dput ftp-master pkg.changes</code></div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label">Close a bug</div>
+      <div class="qr-cmd"><code>bts close 123456 1.0-2</code></div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label">File a bug report</div>
+      <div class="qr-cmd"><code>reportbug packagename</code></div>
+    </div>
+  </div>
+
+  <div class="callout callout-tip" style="margin-top:2.5rem">
+    <span class="callout-icon">📖</span>
+    <div class="callout-body">The authoritative reference is the <strong>Debian Policy Manual</strong> and the <strong>Guide for Debian Maintainers</strong>. Both are available at <span class="ic">debian.org/doc/</span> and as packages: <span class="ic">apt install debian-policy debmake-doc</span>.</div>
+  </div>
+</section>

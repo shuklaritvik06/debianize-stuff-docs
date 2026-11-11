@@ -1,0 +1,48 @@
+<h3 class="cmd-group-title" id="cmd-quality">Quality &amp; Testing</h3>
+
+<div class="cmd-card">
+  <div class="cmd-card-header">
+    <span class="cmd-name">lintian</span>
+    <span class="cmd-what">Check the package against Debian policy</span>
+  </div>
+  <div class="cmd-code"><code>lintian mypkg_1.0-1_amd64.changes
+lintian --display-info --pedantic mypkg.deb</code></div>
+  <div class="cmd-when">Run after every build. Reports errors (must fix), warnings (should fix), and info (good to know). <span class="ic">debuild</span> runs it automatically at the end.</div>
+</div>
+
+<div class="cmd-card">
+  <div class="cmd-card-header">
+    <span class="cmd-name">piuparts</span>
+    <span class="cmd-what">Test install, upgrade, and purge in a clean environment</span>
+  </div>
+  <div class="cmd-code"><code>piuparts mypkg_1.0-1_amd64.deb</code></div>
+  <div class="cmd-when">Installs and then purges the package in a throwaway chroot. Catches maintainer script errors, leftover files after purge, and broken post-install steps.</div>
+</div>
+
+<div class="cmd-card">
+  <div class="cmd-card-header">
+    <span class="cmd-name">autopkgtest</span>
+    <span class="cmd-what">Run the package's own test suite post-install</span>
+  </div>
+  <div class="cmd-code"><code>autopkgtest mypkg_1.0-1.dsc -- schroot unstable-amd64</code></div>
+  <div class="cmd-when">Runs tests defined in <span class="ic">debian/tests/control</span>. This is what the Debian CI system (autopkgtest.debian.net) runs for your package after each upload.</div>
+</div>
+
+<div class="cmd-card">
+  <div class="cmd-card-header">
+    <span class="cmd-name">debc</span>
+    <span class="cmd-what">List contents of the built .deb</span>
+  </div>
+  <div class="cmd-code"><code>debc mypkg_1.0-1.changes</code></div>
+  <div class="cmd-when">Shows exactly which files are inside the .deb and where they will be installed. Quick sanity check before uploading — did everything land in the right place?</div>
+</div>
+
+<div class="cmd-card">
+  <div class="cmd-card-header">
+    <span class="cmd-name">dpkg -c / dpkg -I</span>
+    <span class="cmd-what">Inspect a .deb manually</span>
+  </div>
+  <div class="cmd-code"><code>dpkg -c mypkg_1.0-1_amd64.deb   # list contents
+dpkg -I mypkg_1.0-1_amd64.deb   # show control info</code></div>
+  <div class="cmd-when">Low-level inspection. <span class="ic">-c</span> shows the file tree; <span class="ic">-I</span> shows the metadata (version, deps, description).</div>
+</div>

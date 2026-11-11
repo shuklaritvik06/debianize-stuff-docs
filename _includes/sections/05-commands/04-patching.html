@@ -1,0 +1,53 @@
+<h3 class="cmd-group-title" id="cmd-patching">Patching (quilt)</h3>
+
+<div class="callout callout-tip" style="margin-bottom:1.5rem">
+  <span class="callout-icon">📌</span>
+  <div class="callout-body">With <span class="ic">3.0 (quilt)</span> format, patches in <span class="ic">debian/patches/</span> are applied automatically at build time. You manage them with <span class="ic">quilt</span> (or the <span class="ic">dquilt</span> alias that sets the right QUILT_PATCHES variable automatically).</div>
+</div>
+
+<div class="cmd-card">
+  <div class="cmd-card-header">
+    <span class="cmd-name">dquilt new / quilt new</span>
+    <span class="cmd-what">Start a new patch</span>
+  </div>
+  <div class="cmd-code"><code>dquilt new fix-build-with-clang.patch</code></div>
+  <div class="cmd-when">Creates a new empty patch file. Always name patches descriptively — the name is permanent and shows up in the packaging history.</div>
+</div>
+
+<div class="cmd-card">
+  <div class="cmd-card-header">
+    <span class="cmd-name">dquilt add</span>
+    <span class="cmd-what">Tell quilt which file you're about to edit</span>
+  </div>
+  <div class="cmd-code"><code>dquilt add src/main.c</code></div>
+  <div class="cmd-when">Must be called before editing a file, so quilt can record the before state. Skipping this means quilt can't generate the diff.</div>
+</div>
+
+<div class="cmd-card">
+  <div class="cmd-card-header">
+    <span class="cmd-name">dquilt refresh</span>
+    <span class="cmd-what">Save your edits into the patch file</span>
+  </div>
+  <div class="cmd-code"><code>dquilt refresh</code></div>
+  <div class="cmd-when">After editing tracked files, run this to write the diff into the patch. Run again after any further edits to the same files.</div>
+</div>
+
+<div class="cmd-card">
+  <div class="cmd-card-header">
+    <span class="cmd-name">dquilt header -e</span>
+    <span class="cmd-what">Write a DEP-3 patch header</span>
+  </div>
+  <div class="cmd-code"><code>dquilt header -e</code></div>
+  <div class="cmd-when">Opens the patch header in your editor. Required before submitting patches upstream — the header records the description, author, and bug reference.</div>
+</div>
+
+<div class="cmd-card">
+  <div class="cmd-card-header">
+    <span class="cmd-name">dquilt push / pop / series</span>
+    <span class="cmd-what">Navigate the patch stack</span>
+  </div>
+  <div class="cmd-code"><code>dquilt push          # apply next patch
+dquilt pop           # unapply top patch
+dquilt series        # list all patches in order</code></div>
+  <div class="cmd-when">Patches are applied in the order listed in <span class="ic">debian/patches/series</span>. Use push/pop to work on a specific patch or reproduce a bug that only appears with certain patches applied.</div>
+</div>

@@ -1,0 +1,51 @@
+<h3 class="cmd-group-title" id="cmd-building">Building</h3>
+
+<div class="cmd-card">
+  <div class="cmd-card-header">
+    <span class="cmd-name">debuild</span>
+    <span class="cmd-what">Build the package (recommended for most work)</span>
+  </div>
+  <div class="cmd-code"><code>debuild
+debuild -b     # binary only
+debuild -S     # source only (for uploading to Launchpad)</code></div>
+  <div class="cmd-when">The standard command. Wraps <span class="ic">dpkg-buildpackage</span> with <span class="ic">lintian</span>, signing, and sane defaults. Run from inside the source tree. Output lands one directory up.</div>
+</div>
+
+<div class="cmd-card">
+  <div class="cmd-card-header">
+    <span class="cmd-name">dpkg-buildpackage</span>
+    <span class="cmd-what">Low-level build command (called by debuild)</span>
+  </div>
+  <div class="cmd-code"><code>dpkg-buildpackage -us -uc   # skip signing
+dpkg-buildpackage -rfakeroot</code></div>
+  <div class="cmd-when">Directly invokes the <span class="ic">debian/rules</span> targets. Use when you need fine-grained control or when debugging the build itself.</div>
+</div>
+
+<div class="cmd-card">
+  <div class="cmd-card-header">
+    <span class="cmd-name">sbuild</span>
+    <span class="cmd-what">Build in a clean chroot (catches missing build-deps)</span>
+  </div>
+  <div class="cmd-code"><code>sbuild -d unstable mypkg_1.0-1.dsc
+sbuild -d bookworm --arch=arm64 mypkg.dsc</code></div>
+  <div class="cmd-when">Builds inside a minimal Debian chroot — the gold standard before uploading. If it fails here but not locally, you have an undeclared build dependency.</div>
+</div>
+
+<div class="cmd-card">
+  <div class="cmd-card-header">
+    <span class="cmd-name">gbp buildpackage</span>
+    <span class="cmd-what">Build from a git-buildpackage repo</span>
+  </div>
+  <div class="cmd-code"><code>gbp buildpackage
+gbp buildpackage --git-builder="sbuild"</code></div>
+  <div class="cmd-when">When your package lives in a <span class="ic">gbp</span>-managed git repo. Exports the tree, creates the orig tarball, and calls <span class="ic">debuild</span> or <span class="ic">sbuild</span> for you.</div>
+</div>
+
+<div class="cmd-card">
+  <div class="cmd-card-header">
+    <span class="cmd-name">debputy build</span>
+    <span class="cmd-what">Modern build helper (alternative to dh)</span>
+  </div>
+  <div class="cmd-code"><code>debputy build</code></div>
+  <div class="cmd-when">The next-generation debhelper replacement. If <span class="ic">debian/debputy.manifest</span> exists, use this instead of <span class="ic">dh</span>.</div>
+</div>

@@ -1,0 +1,39 @@
+<h3 class="cmd-group-title" id="cmd-uploading">Uploading</h3>
+
+<div class="cmd-card">
+  <div class="cmd-card-header">
+    <span class="cmd-name">dput</span>
+    <span class="cmd-what">Upload a package to the Debian archive (or Launchpad)</span>
+  </div>
+  <div class="cmd-code"><code>dput ftp-master mypkg_1.0-1_source.changes
+dput ppa:you/myppa mypkg_1.0-1_source.changes</code></div>
+  <div class="cmd-when">The standard upload tool. Reads <span class="ic">~/.dput.cf</span> for host configuration. <span class="ic">ftp-master</span> is the main Debian archive; <span class="ic">ppa:</span> targets are Ubuntu PPAs on Launchpad.</div>
+</div>
+
+<div class="cmd-card">
+  <div class="cmd-card-header">
+    <span class="cmd-name">dput-ng</span>
+    <span class="cmd-what">Modern replacement for dput</span>
+  </div>
+  <div class="cmd-code"><code>dput ftp-master mypkg_1.0-1_source.changes</code></div>
+  <div class="cmd-when">Drop-in replacement with better error messages and support for more upload targets. The same command syntax as dput.</div>
+</div>
+
+<div class="cmd-card">
+  <div class="cmd-card-header">
+    <span class="cmd-name">debsign</span>
+    <span class="cmd-what">Sign a .changes or .dsc file</span>
+  </div>
+  <div class="cmd-code"><code>debsign mypkg_1.0-1_source.changes
+debsign -k YOURKEYID mypkg.dsc</code></div>
+  <div class="cmd-when">Signs the files with your OpenPGP key. Required before uploading to the Debian archive. <span class="ic">debuild</span> calls this automatically at the end of a build if your key is configured.</div>
+</div>
+
+<div class="cmd-card">
+  <div class="cmd-card-header">
+    <span class="cmd-name">gbp push</span>
+    <span class="cmd-what">Push packaging repo to Salsa</span>
+  </div>
+  <div class="cmd-code"><code>gbp push</code></div>
+  <div class="cmd-when">Pushes all relevant branches and tags to the remote (usually Salsa, Debian's GitLab). Run after a successful upload to keep the git repo in sync.</div>
+</div>

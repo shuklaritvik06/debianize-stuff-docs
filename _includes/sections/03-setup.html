@@ -1,0 +1,27 @@
+<section class="section" id="setup">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2>Installing the Tools</h2>
+  </div>
+  <p class="section-desc">Install these once on your Debian/Ubuntu machine before packaging anything.</p>
+
+  <div class="install-block">
+    <code><span class="ic-cmd">sudo apt install</span> build-essential devscripts debmake debhelper-compat \
+  dh-make lintian dpkg-dev fakeroot
+
+<span class="ic-cmd">sudo apt install</span> sbuild schroot
+
+<span class="ic-cmd">sudo apt install</span> git-buildpackage
+
+<span class="ic-cmd">sudo apt install</span> piuparts autopkgtest wrap-and-sort debputy
+
+<span class="ic-cmd">sudo apt install</span> quilt uscan uupdate</code>
+  </div>
+
+  <p>After installing, configure your identity so changelog entries are attributed correctly:</p>
+
+  <div class="install-block">
+    <code>export DEBEMAIL="you@example.com"
+export DEBFULLNAME="Your Name"</code>
+  </div>
+</section>
