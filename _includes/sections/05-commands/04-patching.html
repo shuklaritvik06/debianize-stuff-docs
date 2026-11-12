@@ -10,8 +10,10 @@
     <span class="cmd-name">dquilt new / quilt new</span>
     <span class="cmd-what">Start a new patch</span>
   </div>
-  <div class="cmd-code"><code>dquilt new fix-build-with-clang.patch</code></div>
-  <div class="cmd-when">Creates a new empty patch file. Always name patches descriptively — the name is permanent and shows up in the packaging history.</div>
+  <div class="cmd-code"><code>dquilt new fix-crash-no-swap.patch</code></div>
+  <div class="cmd-body">
+    <div class="cmd-when">Creates a new empty patch file and makes it active. Always name patches descriptively — the name is permanent and shows up in the packaging history. You cannot skip this step; <span class="ic">dquilt add</span> will fail without an active patch.</div>
+  </div>
 </div>
 
 <div class="cmd-card">
@@ -19,8 +21,11 @@
     <span class="cmd-name">dquilt add</span>
     <span class="cmd-what">Tell quilt which file you're about to edit</span>
   </div>
-  <div class="cmd-code"><code>dquilt add src/main.c</code></div>
-  <div class="cmd-when">Must be called before editing a file, so quilt can record the before state. Skipping this means quilt can't generate the diff.</div>
+  <div class="cmd-code"><code>dquilt add src/main.c
+dquilt add src/parser.c   # multiple files, one patch</code></div>
+  <div class="cmd-body">
+    <div class="cmd-when">Must be called before editing a file so quilt can record the before state. One patch can track multiple files — call <span class="ic">dquilt add</span> for each one before editing any of them.</div>
+  </div>
 </div>
 
 <div class="cmd-card">
@@ -29,7 +34,9 @@
     <span class="cmd-what">Save your edits into the patch file</span>
   </div>
   <div class="cmd-code"><code>dquilt refresh</code></div>
-  <div class="cmd-when">After editing tracked files, run this to write the diff into the patch. Run again after any further edits to the same files.</div>
+  <div class="cmd-body">
+    <div class="cmd-when">After editing tracked files, run this to write the diff into the patch. Run again after any further edits to the same files.</div>
+  </div>
 </div>
 
 <div class="cmd-card">
@@ -38,7 +45,26 @@
     <span class="cmd-what">Write a DEP-3 patch header</span>
   </div>
   <div class="cmd-code"><code>dquilt header -e</code></div>
-  <div class="cmd-when">Opens the patch header in your editor. Required before submitting patches upstream — the header records the description, author, and bug reference.</div>
+  <div class="cmd-body">
+    <div class="cmd-when">Opens the patch header in your editor. Required before submitting patches upstream — the header records the description, author, and bug reference.</div>
+    <div class="cmd-extra">
+      <p class="cmd-extra-label">Full DEP-3 header example</p>
+      <div class="cmd-code"><code>Description: Fix crash when system has no swap partition
+ SwapMeter divides by swap_total without checking for zero.
+ Systems with no swap configured crash htop on startup.
+Forwarded: https://github.com/htop-dev/htop/issues/999
+Author: Ritvik Shukla &lt;ritvik@example.com&gt;
+Bug-Debian: https://bugs.debian.org/123456
+Last-Update: 2026-11-12</code></div>
+      <p class="cmd-extra-label" style="margin-top:4px">Forwarded: values</p>
+      <div class="cmd-flag-table">
+        <div class="cmd-flag-row"><span class="ic">no</span><span>not reported upstream yet — you should</span></div>
+        <div class="cmd-flag-row"><span class="ic">not-needed</span><span>Debian-specific change, upstream would never want it</span></div>
+        <div class="cmd-flag-row"><span class="ic">https://...</span><span>reported upstream — link to the issue or PR</span></div>
+      </div>
+      <p class="cmd-extra-note">The goal is to eventually get every patch merged upstream and delete it from <span class="ic">debian/patches/</span>.</p>
+    </div>
+  </div>
 </div>
 
 <div class="cmd-card">
@@ -49,5 +75,11 @@
   <div class="cmd-code"><code>dquilt push          # apply next patch
 dquilt pop           # unapply top patch
 dquilt series        # list all patches in order</code></div>
-  <div class="cmd-when">Patches are applied in the order listed in <span class="ic">debian/patches/series</span>. Use push/pop to work on a specific patch or reproduce a bug that only appears with certain patches applied.</div>
+  <div class="cmd-body">
+    <div class="cmd-when">Patches apply in the order listed in <span class="ic">debian/patches/series</span>, top to bottom, every build. Use push/pop to work on a specific patch or reproduce a bug that only appears with certain patches applied.</div>
+    <div class="cmd-extra">
+      <p class="cmd-extra-label">When updating to a new upstream release</p>
+      <p class="cmd-extra-note">Run <span class="ic">dquilt push -a</span> to re-apply all patches. If a patch can't apply cleanly, quilt writes a <span class="ic">.rej</span> file next to the source file containing the hunks that failed. Open the <span class="ic">.rej</span>, find where that code moved in the new upstream, apply the change manually, then run <span class="ic">dquilt refresh</span>. If upstream already fixed the issue, delete the patch entirely: <span class="ic">dquilt delete fix-name.patch</span>.</p>
+    </div>
+  </div>
 </div>

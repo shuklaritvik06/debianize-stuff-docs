@@ -6,7 +6,9 @@
     <span class="cmd-what">Generate the debian/ template folder</span>
   </div>
   <div class="cmd-code"><code>debmake</code></div>
-  <div class="cmd-when">Run once, inside unpacked upstream source. Reads the existing build system (Makefile, CMake, etc.) and writes a skeleton <span class="ic">debian/</span> folder. You then edit those templates.</div>
+  <div class="cmd-body">
+    <div class="cmd-when">Run once, inside unpacked upstream source. Reads the existing build system (Makefile, CMake, etc.) and writes a skeleton <span class="ic">debian/</span> folder. You then edit those templates.</div>
+  </div>
 </div>
 
 <div class="cmd-card">
@@ -14,8 +16,23 @@
     <span class="cmd-name">dh_make</span>
     <span class="cmd-what">Older template generator (alternative to debmake)</span>
   </div>
-  <div class="cmd-code"><code>dh_make --indep --createorig -f ../mypkg_1.0.orig.tar.gz</code></div>
-  <div class="cmd-when">Pre-dates debmake; still widely documented. Use debmake for new packages — it generates cleaner templates.</div>
+  <div class="cmd-code"><code>dh_make --single -f ../mypkg_1.0.orig.tar.gz
+dh_make --indep --createorig</code></div>
+  <div class="cmd-body">
+    <div class="cmd-when">Pre-dates debmake; still widely documented. Use debmake for new packages — it generates cleaner templates.</div>
+    <div class="cmd-extra">
+      <p class="cmd-extra-label">Flag guide</p>
+      <div class="cmd-flag-table">
+        <div class="cmd-flag-row"><span class="ic">--single</span><span>one binary package, compiles to native code</span></div>
+        <div class="cmd-flag-row"><span class="ic">--indep</span><span>architecture-independent (scripts, data, docs)</span></div>
+        <div class="cmd-flag-row"><span class="ic">--library</span><span>C/C++ library — generates libfoo + libfoo-dev packages</span></div>
+        <div class="cmd-flag-row"><span class="ic">--python</span><span>Python module or package</span></div>
+        <div class="cmd-flag-row"><span class="ic">-f ../pkg.orig.tar.gz</span><span>use this existing tarball</span></div>
+        <div class="cmd-flag-row"><span class="ic">--createorig</span><span>create a tarball from the current directory (no tarball yet)</span></div>
+      </div>
+      <p class="cmd-extra-note"><span class="ic">-f</span> and <span class="ic">--createorig</span> are redundant together — if you have a tarball use <span class="ic">-f</span>; if you don't use <span class="ic">--createorig</span>.</p>
+    </div>
+  </div>
 </div>
 
 <div class="cmd-card">
@@ -23,10 +40,29 @@
     <span class="cmd-name">dch / debchange</span>
     <span class="cmd-what">Edit debian/changelog correctly</span>
   </div>
-  <div class="cmd-code"><code>dch -i "Fix segfault on empty input"
-dch -v 1.2-1 "New upstream release"
-dch -r ""</code></div>
-  <div class="cmd-when">Always use this instead of a text editor. <span class="ic">-i</span> increments the Debian revision; <span class="ic">-v</span> sets an exact version; <span class="ic">-r</span> marks the entry as ready for release.</div>
+  <div class="cmd-code"><code>dch -v 1.0-1 "Initial Debian packaging"   # set exact version
+dch -i "Fix segfault on empty input"      # increment Debian revision
+dch -a "Update man page"                  # add bullet to open entry
+dch -r ""                                 # mark ready, set distribution</code></div>
+  <div class="cmd-body">
+    <div class="cmd-when">Always use this instead of a text editor. <span class="ic">-i</span> increments the Debian revision (1.0-1 → 1.0-2); <span class="ic">-v</span> sets an exact version; <span class="ic">-r</span> changes <span class="ic">UNRELEASED</span> → <span class="ic">unstable</span> and stamps the timestamp.</div>
+    <div class="cmd-extra">
+      <p class="cmd-extra-label">Resulting debian/changelog</p>
+      <div class="cmd-code"><code>mypkg (1.0-2) unstable; urgency=medium
+
+  * Fix segfault on empty input (Closes: #123456)
+  * Update man page
+
+ -- Ritvik Shukla &lt;ritvik@example.com&gt;  Wed, 12 Nov 2026 20:00:00 +0530
+
+mypkg (1.0-1) unstable; urgency=low
+
+  * Initial Debian packaging
+
+ -- Ritvik Shukla &lt;ritvik@example.com&gt;  Mon, 09 Nov 2026 12:00:00 +0530</code></div>
+      <p class="cmd-extra-note">Two spaces before the date in the trailer line is mandatory — one missing space breaks the build. The top stanza's version is what gets built; older stanzas are read-only history.</p>
+    </div>
+  </div>
 </div>
 
 <div class="cmd-card">
@@ -35,7 +71,9 @@ dch -r ""</code></div>
     <span class="cmd-what">Sort and wrap debian/ control fields</span>
   </div>
   <div class="cmd-code"><code>wrap-and-sort -a</code></div>
-  <div class="cmd-when">Run before committing. Normalizes the formatting of <span class="ic">debian/control</span>, <span class="ic">debian/copyright</span>, and similar files so diffs stay clean.</div>
+  <div class="cmd-body">
+    <div class="cmd-when">Run before committing. Normalizes the formatting of <span class="ic">debian/control</span>, <span class="ic">debian/copyright</span>, and similar files so diffs stay clean.</div>
+  </div>
 </div>
 
 <div class="cmd-card">
@@ -44,5 +82,7 @@ dch -r ""</code></div>
     <span class="cmd-what">Auto-fix control file syntax errors</span>
   </div>
   <div class="cmd-code"><code>cme fix dpkg</code></div>
-  <div class="cmd-when">When <span class="ic">debian/control</span> has syntax or policy issues, this tool reads and rewrites it to fix common problems automatically.</div>
+  <div class="cmd-body">
+    <div class="cmd-when">When <span class="ic">debian/control</span> has syntax or policy issues, this tool reads and rewrites it to fix common problems automatically.</div>
+  </div>
 </div>

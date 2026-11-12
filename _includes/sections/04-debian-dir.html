@@ -37,7 +37,18 @@
         <tr>
           <td class="fname">debian/watch</td>
           <td class="freq">Recommended</td>
-          <td>Tells <span class="ic">uscan</span> where to find new upstream releases. Used by the Debian QA team to alert maintainers of updates.</td>
+          <td>
+            Tells <span class="ic">uscan</span> where to find new upstream releases. Used by the Debian QA team to alert maintainers of updates. Without this your package shows as <span class="ic">[WATCHFILE NOT PRESENT]</span> on the Debian QA page.
+            <details style="margin-top:8px">
+              <summary style="font-size:12px;color:var(--accent);cursor:pointer;font-family:var(--font-display)">Show examples</summary>
+              <p style="font-size:12px;color:var(--fg-muted);margin:6px 0 2px">GitHub:</p>
+              <pre style="background:var(--code-bg);color:var(--code-fg);font-family:var(--font-code);font-size:11.5px;padding:8px 10px;border-radius:5px;overflow-x:auto;margin:0 0 6px">version=4
+https://github.com/user/repo/releases .*/v?(\d[\d.]+)\.tar\.gz</pre>
+              <p style="font-size:12px;color:var(--fg-muted);margin:0 0 2px">PyPI:</p>
+              <pre style="background:var(--code-bg);color:var(--code-fg);font-family:var(--font-code);font-size:11.5px;padding:8px 10px;border-radius:5px;overflow-x:auto;margin:0">version=4
+https://pypi.debian.net/mypkg/mypkg-(.+)\.tar\.gz</pre>
+            </details>
+          </td>
         </tr>
         <tr>
           <td class="fname">debian/install</td>

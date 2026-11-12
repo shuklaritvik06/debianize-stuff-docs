@@ -7,7 +7,23 @@
   </div>
   <div class="cmd-code"><code>lintian mypkg_1.0-1_amd64.changes
 lintian --display-info --pedantic mypkg.deb</code></div>
-  <div class="cmd-when">Run after every build. Reports errors (must fix), warnings (should fix), and info (good to know). <span class="ic">debuild</span> runs it automatically at the end.</div>
+  <div class="cmd-body">
+    <div class="cmd-when">Run after every build. <span class="ic">debuild</span> runs it automatically at the end. Fix all <span class="ic">E:</span> and <span class="ic">W:</span> before uploading.</div>
+    <div class="cmd-extra">
+      <p class="cmd-extra-label">Severity levels</p>
+      <div class="cmd-flag-table">
+        <div class="cmd-flag-row"><span class="ic">E:</span><span>Error — policy violation, archive will reject the upload</span></div>
+        <div class="cmd-flag-row"><span class="ic">W:</span><span>Warning — should fix before uploading</span></div>
+        <div class="cmd-flag-row"><span class="ic">I:</span><span>Info — minor notes, shown with <span class="ic">--display-info</span></span></div>
+        <div class="cmd-flag-row"><span class="ic">P:</span><span>Pedantic — nitpicky hints, shown with <span class="ic">--pedantic</span></span></div>
+      </div>
+      <p class="cmd-extra-label" style="margin-top:4px">Example output</p>
+      <div class="cmd-code"><code>E: mypkg: binary-without-manpage usr/bin/myprog
+W: mypkg: new-package-should-close-itp-bug
+I: mypkg: description-synopsis-might-not-be-phrased-properly
+P: mypkg: readme-debian-contains-debmake-template</code></div>
+    </div>
+  </div>
 </div>
 
 <div class="cmd-card">
@@ -16,7 +32,9 @@ lintian --display-info --pedantic mypkg.deb</code></div>
     <span class="cmd-what">Test install, upgrade, and purge in a clean environment</span>
   </div>
   <div class="cmd-code"><code>piuparts mypkg_1.0-1_amd64.deb</code></div>
-  <div class="cmd-when">Installs and then purges the package in a throwaway chroot. Catches maintainer script errors, leftover files after purge, and broken post-install steps.</div>
+  <div class="cmd-body">
+    <div class="cmd-when">Installs and then purges the package in a throwaway chroot. Catches maintainer script errors, leftover files after purge, and broken post-install steps.</div>
+  </div>
 </div>
 
 <div class="cmd-card">
@@ -25,7 +43,9 @@ lintian --display-info --pedantic mypkg.deb</code></div>
     <span class="cmd-what">Run the package's own test suite post-install</span>
   </div>
   <div class="cmd-code"><code>autopkgtest mypkg_1.0-1.dsc -- schroot unstable-amd64</code></div>
-  <div class="cmd-when">Runs tests defined in <span class="ic">debian/tests/control</span>. This is what the Debian CI system (autopkgtest.debian.net) runs for your package after each upload.</div>
+  <div class="cmd-body">
+    <div class="cmd-when">Runs tests defined in <span class="ic">debian/tests/control</span>. This is what the Debian CI system (autopkgtest.debian.net) runs for your package after each upload.</div>
+  </div>
 </div>
 
 <div class="cmd-card">
@@ -34,7 +54,17 @@ lintian --display-info --pedantic mypkg.deb</code></div>
     <span class="cmd-what">List contents of the built .deb</span>
   </div>
   <div class="cmd-code"><code>debc mypkg_1.0-1.changes</code></div>
-  <div class="cmd-when">Shows exactly which files are inside the .deb and where they will be installed. Quick sanity check before uploading — did everything land in the right place?</div>
+  <div class="cmd-body">
+    <div class="cmd-when">Shows exactly which files are inside the .deb and where they will be installed. Quick sanity check before uploading — did everything land in the right place?</div>
+    <div class="cmd-extra">
+      <p class="cmd-extra-label">Example output</p>
+      <div class="cmd-code"><code>drwxr-xr-x root/root      0 2026-11-12 usr/bin/
+-rwxr-xr-x root/root  12345 2026-11-12 usr/bin/myprog
+drwxr-xr-x root/root      0 2026-11-12 usr/share/man/man1/
+-rw-r--r-- root/root    890 2026-11-12 usr/share/man/man1/myprog.1.gz
+-rw-r--r-- root/root    567 2026-11-12 usr/share/doc/mypkg/copyright</code></div>
+    </div>
+  </div>
 </div>
 
 <div class="cmd-card">
@@ -42,7 +72,22 @@ lintian --display-info --pedantic mypkg.deb</code></div>
     <span class="cmd-name">dpkg -c / dpkg -I</span>
     <span class="cmd-what">Inspect a .deb manually</span>
   </div>
-  <div class="cmd-code"><code>dpkg -c mypkg_1.0-1_amd64.deb   # list contents
-dpkg -I mypkg_1.0-1_amd64.deb   # show control info</code></div>
-  <div class="cmd-when">Low-level inspection. <span class="ic">-c</span> shows the file tree; <span class="ic">-I</span> shows the metadata (version, deps, description).</div>
+  <div class="cmd-code"><code>dpkg -c mypkg_1.0-1_amd64.deb   # list file tree
+dpkg -I mypkg_1.0-1_amd64.deb   # show metadata</code></div>
+  <div class="cmd-body">
+    <div class="cmd-when"><span class="ic">-c</span> shows the file tree (same as <span class="ic">debc</span> but works without a <span class="ic">.changes</span> file); <span class="ic">-I</span> shows the metadata: version, dependencies, description.</div>
+    <div class="cmd-extra">
+      <p class="cmd-extra-label">dpkg -I example output</p>
+      <div class="cmd-code"><code> Package: mypkg
+ Version: 1.0-1
+ Architecture: amd64
+ Maintainer: Ritvik Shukla &lt;ritvik@example.com&gt;
+ Installed-Size: 156
+ Depends: libc6 (&gt;= 2.17)
+ Section: utils
+ Priority: optional
+ Description: A minimal example program
+  Does something useful with minimal dependencies.</code></div>
+    </div>
+  </div>
 </div>
